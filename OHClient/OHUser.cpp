@@ -2,10 +2,22 @@
 
 #include "OHUser.h"
 
+
+
 bool ClientStarted = false;
 //TCP::CLIENT::TCPClient* tClient;
 //std::vector<GAME::GS_ptr> GS_V;
+
+////////////////////////////////////
+//consecutive states
+holdem_state    m_holdem_state[256];
+holdem_state*	prev_h_state = {0};
+holdem_state*	curr_h_state = {0} ;
+
+unsigned char   m_ndx = 0;
 pfgws_t m_pget_winholdem_symbol = NULL; // lets initiate this to null to check later if this is obtained from OH
+
+////////////////////////////////////
 
 void initClient(){
 	//boost::asio::io_service IOService;
@@ -15,22 +27,6 @@ void initClient(){
 	//GS_V.push_back( GAME::GS_ptr(new GAME::GState(IOService)));
 	ClientStarted = true;
 }
-
-/////////////////////////////////////
-//card macros
-#define RANK(c) ((c>>4)&0x0f)
-#define SUIT(c) ((c>>0)&0x0f)
-#define ISCARDBACK(c) (c==0xff)
-#define ISUNKNOWN(c) (c==0)
-/////////////////////////////////////
-
-////////////////////////////////////
-//consecutive states
-holdem_state    m_holdem_state[256];
-unsigned char   m_ndx;
-////////////////////////////////////
-
-
 
 
 double GetSymbolFromDll( const char* name ) {
@@ -89,15 +85,119 @@ double process_query( const char* pquery ) {
         return 0;
 }
 
+bool isChangedState(holdem_state* a_state, holdem_state* b_state){
+	if ( &(a_state->m_dealer_chair) != &(b_state->m_dealer_chair)) {
+		//New Game Event
+		_cprintf("NEW GAME\n");
+	} else if ( 254 == (int)(&a_state->m_cards[0])){
+		// Preflop or showdown
+		if (254 > (int)(&b_state->m_cards[0]) ){
+			//FLOP event
+			_cprintf("FLOP\n");
+		}
+	} else if (254 == (int)(&a_state->m_cards[3]))  {		
+		//flop
+		if (254 > (int)(&b_state->m_cards[3])) {
+			//TURN EVENT
+			_cprintf("TURN\n");
+		}
+	} else if (254 ==(int)(&a_state->m_cards[4])) {
+		//flop
+		if (254 > (int)(&b_state->m_cards[4])){
+			//TURN RIVER
+			_cprintf("RIVER\n");
+		} //NISHA ADDED THIS
+	}
+	return true;
+}
+
+bool compare_holdem_states(holdem_state* a_state, holdem_state* b_state){
+	iter_holdem_state c = {0} ;
+	iter_holdem_state d = {0} ;
+	//memcpy(c->h_state, a_state, sizeof(holdem_state));
+	//memcpy(d->h_state, b_state, sizeof(holdem_state));
+	c.h_state = a_state;
+	d.h_state = b_state;
+
+	//memcpy(&c.h_state, a_state, sizeof(holdem_state));
+	//memcpy(&d.h_state, b_state, sizeof(holdem_state));
+	for(int i = 0; i < 9 ; i++) {
+		_cprintf("Comparing comp %d: %c / %c \n", i, c.components[i], d.components[i]);
+		if (c.components[i] == d.components[i]) {
+			 _cprintf("Same Struct %d \n", i);
+		} else {
+			_cprintf("Change in Struct %d \n", i);
+			return true;
+		}
+	}
+	
+		
+	return false;
+	
+	//return false;
+}
+
 
 double process_state( holdem_state* pstate ) {
         if (pstate!=NULL) { 
-			 m_holdem_state[ (++m_ndx)&0xff ] = *pstate; 
-			_cprintf("pState: %s", m_ndx&0xff);
-			bool isErr;
-			
+			 //m_holdem_state[ (++m_ndx)&0xff ] = *pstate; 
+			//_cprintf("pState: %s", m_ndx&0xff);
+			//bool isErr;
+			 prev_h_state = curr_h_state;
+			 //memset(curr_h_state,0,sizeof(holdem_state));
+			 curr_h_state = pstate;
+		//memcpy( prev_h_state, cur_h_state, sizeof(holdem_state));
+		//memcpy( cur_h_state, pstate, sizeof(holdem_state));
+		return compare_holdem_states(prev_h_state, curr_h_state);
+		//return isChangedState(prev_h_state, curr_h_state); 
+		//	 print_state(pstate);
 		}
         return 0;
+}
+
+void print_state( holdem_state* pstate ){
+	_cprintf("############### HOLDEM STATE SUMMARY ########################## \n");
+	_cprintf("Table:	%s \n", pstate->m_title );         ;       //table title
+	_cprintf("Total Pot[0]:	%.2f \n", pstate->m_pot[0] );
+	_cprintf("Community Cards:	" );
+		print_card(pstate->m_cards[0]);
+		print_card(pstate->m_cards[1]);
+		print_card(pstate->m_cards[2]);
+		print_card(pstate->m_cards[3]);
+		print_card(pstate->m_cards[4]); _cprintf(" %d", (int)pstate->m_cards[4]);
+		/*RANK(pstate->m_cards[0]), SUIT(pstate->m_cards[0]),
+		RANK(pstate->m_cards[1]), SUIT(pstate->m_cards[1]),
+		RANK(pstate->m_cards[2]), SUIT(pstate->m_cards[2]),
+		RANK(pstate->m_cards[3]), SUIT(pstate->m_cards[3]),
+		RANK(pstate->m_cards[4]), SUIT(pstate->m_cards[4])
+		 );
+		 */
+	_cprintf("\n");
+
+	_cprintf("Is Hero Playing:	%s \n", (pstate->m_is_playing == 1) ? "Yes" : "No") ;
+	_cprintf("Is Autopost On:	%s \n", ( pstate->m_is_posting == 1) ? "On" : "Off") ;
+	_cprintf("nDealerChair:	%d \n",(int) pstate->m_dealer_chair );
+	_cprintf("/////////////////////// PLAYERS SUMMARY \\\\\\\\\\\\\\\\\\\\\\\ \n");
+	for(int i=0; i<10; i++){
+		_cprintf("%d:",i); 
+		print_player((holdem_player*) &pstate->m_player[i]);
+	}
+}
+
+void print_player(holdem_player* pplayer){
+	_cprintf("%s (%.2f) [", pplayer->m_name, pplayer->m_balance);
+		print_card(pplayer->m_cards[0]);
+		print_card(pplayer->m_cards[1]);
+	_cprintf("]: Bet %.2f \n", pplayer->m_currentbet);
+}
+
+void print_card(unsigned char c_card){
+	//int c_rank = (card % 13) + 2; //add two to Normalize
+	//int c_suit = (card / 13);
+	int card = (int)c_card;	
+	if (card < 254){
+		_cprintf("%c%c ", C_RANKS[C_RANK(card)], C_SUITS[C_SUIT(card)] );
+	} else _cprintf(" ");
 }
 
 
@@ -109,10 +209,10 @@ OHUSER_API double process_message (const char* pmessage, const void* param) {
         if (pmessage==NULL) { return 0; }
         if (param==NULL) { return 0; }
 
-        if (strcmp(pmessage,"state")==0) { 
-                //holdem_state *state = (holdem_state*) param;
+        if (strcmp(pmessage,"state")==0) {
+				//holdem_state *state = (holdem_state*) param;
 				//if (ClientStarted != true){ initClient(); }
-			 return process_state( (holdem_state*)param ); 
+				return process_state( (holdem_state*) param );
         }
 
         if (strcmp(pmessage,"query")==0) { 

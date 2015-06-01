@@ -18,7 +18,7 @@ BOOL APIENTRY DllMain(HANDLE hModule, DWORD ul_reason_for_call, LPVOID lpReserve
 	//GameState* pGState = new GameState(IOService);
 
     switch (ul_reason_for_call) {
-                case DLL_PROCESS_ATTACH:
+                case DLL_PROCESS_ATTACH:  //DLL Attached to the host
                         AllocConsole();
 						//MessageBoxA(NULL,"Hello from DLL process atach","Caption",NULL);
                         break;
@@ -28,7 +28,7 @@ BOOL APIENTRY DllMain(HANDLE hModule, DWORD ul_reason_for_call, LPVOID lpReserve
                 case DLL_THREAD_DETACH:
 					//MessageBoxA(NULL,"Hello from DLL thread detach","Caption",NULL);
                         break;
-                case DLL_PROCESS_DETACH:
+                case DLL_PROCESS_DETACH: //DLL Detatched from the host
                         FreeConsole();
 						//MessageBoxA(NULL,"Hello from DLL process detach","Caption",NULL);
                         break;

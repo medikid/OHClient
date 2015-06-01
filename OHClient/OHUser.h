@@ -9,6 +9,7 @@
 
 #include "OHImports.h"
 
+
 typedef double (*process_message_t)(const char* message, const void* param );
 OHUSER_API double process_message( const char* message, const void* param );
 typedef double (*pfgws_t)( int c, const char* psym, bool& iserr );
@@ -21,6 +22,10 @@ extern  pfgws_t m_pget_winholdem_symbol; //gws is outdated now
 double gws( const char* name );
 double process_state(holdem_state* pstate);
 void print_state(holdem_state* pstate);
+void print_player(holdem_player* pplayer);
+void print_card(unsigned char card);
+bool compare_holdem_states(holdem_state* a_state, holdem_state* b_state);
 double process_query(const char* pquery);
+
 
 #endif //_OHUSER_h_
