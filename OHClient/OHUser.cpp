@@ -112,27 +112,19 @@ bool isChangedState(holdem_state* a_state, holdem_state* b_state){
 }
 
 bool compare_holdem_states(holdem_state* a_state, holdem_state* b_state){
-	iter_holdem_state c = {0} ;
-	iter_holdem_state d = {0} ;
+	
 	//memcpy(c->h_state, a_state, sizeof(holdem_state));
 	//memcpy(d->h_state, b_state, sizeof(holdem_state));
-	c.h_state = a_state;
-	d.h_state = b_state;
-
+	
 	//memcpy(&c.h_state, a_state, sizeof(holdem_state));
 	//memcpy(&d.h_state, b_state, sizeof(holdem_state));
-	for(int i = 0; i < 9 ; i++) {
-		_cprintf("Comparing comp %d: %c / %c \n", i, c.components[i], d.components[i]);
-		if (c.components[i] == d.components[i]) {
-			 _cprintf("Same Struct %d \n", i);
-		} else {
-			_cprintf("Change in Struct %d \n", i);
-			return true;
-		}
-	}
-	
+
+	if (memcmp(a_state, b_state, sizeof(holdem_state)) == 0){
+			 _cprintf("Same Struct \n");
+		} else _cprintf("Change in Struct \n");
 		
-	return false;
+	
+		return false;
 	
 	//return false;
 }

@@ -10,6 +10,17 @@
 #include <windows.h> //windows should come at the end
 //#include "GUIclass.h"
 
+#include <boost/fusion/adapted/struct.hpp>
+#include <boost/fusion/include/for_each.hpp>
+#include <boost/phoenix/phoenix.hpp>
+#include <array>
+
+#include <boost/fusion/container/vector.hpp> 
+#include <boost/fusion/include/vector_tie.hpp> 
+#include <boost/fusion/include/adapt_struct.hpp> 
+#include <boost/fusion/include/equal_to.hpp> 
+#include <boost/fusion/include/tag_of.hpp>
+
 extern "C" __declspec(dllimport) double __stdcall GetSymbolFromDll(const int chair, const char* name, bool& iserr); //imported function, we need OH.lib
 	extern "C" __declspec(dllimport) void   __stdcall SendChatMessageFomDll(const char *msg);
 	extern "C" __declspec(dllimport) void*  __stdcall GetPhl1kFromDll();
@@ -43,13 +54,65 @@ struct holdem_state {
 				unsigned char   m_dealer_chair      ;       //0-9
 
 				holdem_player   m_player[10]        ;       //player records
-			};
+			} ;
+
+BOOST_FUSION_ADAPT_STRUCT( holdem_state, \
+						  (char, m_title[64]) \
+						  (double, m_pot[10]) \
+						  (unsigned char, m_cards[5]) \
+						  (unsigned char, m_is_playing) \
+						  (unsigned char, m_is_posting) \
+						  (unsigned char, m_fillterbits) \
+						  (unsigned char, m_fillterbyte) \
+						  (unsigned char, m_dealer_chair) \
+						  (holdem_player, m_player[10]) \
+						  ); \
+
+/*
+// looks complicated and inflexible 
+bool operator == ( const holdem_state& prev, const holdem_state& curr) 
+{ 
+    using namespace boost::fusion; 
+
+    typedef boost::fusion::vector<
+		std::array<const char,64>&,
+		//boost::array<const char, 64>&,
+		std::array<const double,10>&,
+		std::array<unsigned char,5>&,
+		const unsigned char&,
+		const unsigned char&,
+		const unsigned char&,
+		const unsigned char&,
+		const unsigned char&,
+		std::array<holdem_player,10>&
+        >  fusion_foo_type; 
+
+	fusion_foo_type prev_ = boost::fusion::vector_tie( prev.m_title, prev.m_pot, prev.m_cards, prev.m_is_playing, prev.m_is_posting, prev.m_fillerbits, prev.m_fillerbyte, prev.m_dealer_chair, prev.m_player ); 
+	fusion_foo_type curr_ = boost::fusion::vector_tie( curr.m_title, curr.m_pot, curr.m_cards, curr.m_is_playing, prev.m_is_posting, curr.m_fillerbits, curr.m_fillerbyte, curr.m_dealer_chair, curr.m_player );  
+
+    return prev_ == curr_; 
+} 
+
+
+template<typename Struct, int Pos> 
+struct foo_struct_iterator : boost::fusion::iterator_base<foo_struct_iterator<Struct, Pos> > 
+{ 
+    BOOST_STATIC_ASSERT(Pos >=0 && Pos < 2); 
+
+    typedef Struct                      struct_type; 
+    typedef boost::mpl::int_<Pos>       index; 
+    typedef boost::fusion::random_access_traversal_tag category; 
+
+    foo_struct_iterator(Struct& str) : struct_(str) {} 
+
+    Struct& struct_; 
+}; 
 
 union iter_holdem_state{
 			holdem_state* h_state;
 			int components[9];
 };
-
+*/
 /////////////////////////////////////
 //card macros
 #define RANK(c) ((c>>4)&0x0f)
