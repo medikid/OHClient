@@ -11,9 +11,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{3CB9D6DB-976D-419D-95A3-05EB7CCBCB0A}</ProjectGuid>
+    <ProjectGuid>{85E36AED-922F-4612-BA3C-0490FEC86ADC}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>OHClient</RootNamespace>
+    <RootNamespace>Messenger</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -41,8 +41,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <LibraryPath>E:\Projects\CPP\boost\stage\lib\x32;$(SolutionDir)\Debug;$(VCInstallDir)lib;$(VCInstallDir)atlmfc\lib;$(WindowsSDK_LibraryPath_x86)</LibraryPath>
-    <IncludePath>E:\Projects\CPP\boost;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)\Debug;E:\Projects\CPP\boost\stage\lib\x32;$(VCInstallDir)lib;$(VCInstallDir)atlmfc\lib;$(WindowsSDK_LibraryPath_x86)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -53,16 +52,18 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;OHCLIENT_EXPORTS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <SDLCheck>false</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir)\Debug;$(SolutionDir)\CfgWrtr;$(SolutionDir)\CfgPrsr;$(SolutionDir)\Cfg;$(SolutionDir)\TCPCom;$(SolutionDir)\Msg;$(SolutionDir)\Messenger;$(SolutionDir)\TCPClientDLL</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;MESSENGER_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)\TCPCom;$(SolutionDir)\Msg;E:\Projects\CPP\boost</AdditionalIncludeDirectories>
+      <BrowseInformation>true</BrowseInformation>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>Cfg.lib;TCPClientDLL.lib;OpenHoldem.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)\Debug</AdditionalLibraryDirectories>
+      <AdditionalDependencies>TCPCom.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <Bscmake>
+      <PreserveSbr>true</PreserveSbr>
+    </Bscmake>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -72,8 +73,7 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;OHCLIENT_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;MESSENGER_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -83,12 +83,23 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="OHUser.cpp" />
+    <ClCompile Include="Messenger.cpp" />
+    <ClCompile Include="MsgProcessor.cpp" />
+    <ClCompile Include="SockHandler.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="OHImports.h" />
-    <ClInclude Include="OHUser.h" />
+    <ClInclude Include="Messenger.h" />
+    <ClInclude Include="MsgProcessor.h" />
+    <ClInclude Include="MsgQ.h" />
+    <ClInclude Include="SockHandler.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Msg\Msg.vcxproj">
+      <Project>{9da77d29-1608-44e1-97d5-f1b08409101c}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\TCPCom\TCPCom.vcxproj">
+      <Project>{e758404a-1896-4f96-b03c-a717e245c88f}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,7 +1,7 @@
 #define OHUSER_EXPORTS
 
 #include "OHUser.h"
-
+//#include "TCPClient.h"
 
 
 bool ClientStarted = false;
@@ -119,7 +119,7 @@ bool compare_holdem_states(holdem_state* a_state, holdem_state* b_state){
 	//memcpy(&c.h_state, a_state, sizeof(holdem_state));
 	//memcpy(&d.h_state, b_state, sizeof(holdem_state));
 
-	if (memcmp(a_state, b_state, sizeof(holdem_state)) == 0){
+	if ( a_state == b_state ){
 			 _cprintf("Same Struct \n");
 		} else _cprintf("Change in Struct \n");
 		
@@ -140,7 +140,7 @@ double process_state( holdem_state* pstate ) {
 			 curr_h_state = pstate;
 		//memcpy( prev_h_state, cur_h_state, sizeof(holdem_state));
 		//memcpy( cur_h_state, pstate, sizeof(holdem_state));
-		return compare_holdem_states(prev_h_state, curr_h_state);
+		return compare_holdem_states(prev_h_state, pstate);
 		//return isChangedState(prev_h_state, curr_h_state); 
 		//	 print_state(pstate);
 		}
@@ -169,7 +169,7 @@ void print_state( holdem_state* pstate ){
 	_cprintf("Is Hero Playing:	%s \n", (pstate->m_is_playing == 1) ? "Yes" : "No") ;
 	_cprintf("Is Autopost On:	%s \n", ( pstate->m_is_posting == 1) ? "On" : "Off") ;
 	_cprintf("nDealerChair:	%d \n",(int) pstate->m_dealer_chair );
-	_cprintf("/////////////////////// PLAYERS SUMMARY \\\\\\\\\\\\\\\\\\\\\\\ \n");
+	_cprintf("/////////////////////// PLAYERS SUMMARY \\\\\\\\\\\\\\\\\\\\\\\\n");
 	for(int i=0; i<10; i++){
 		_cprintf("%d:",i); 
 		print_player((holdem_player*) &pstate->m_player[i]);

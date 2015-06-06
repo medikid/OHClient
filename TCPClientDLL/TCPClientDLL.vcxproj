@@ -11,9 +11,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{3CB9D6DB-976D-419D-95A3-05EB7CCBCB0A}</ProjectGuid>
+    <ProjectGuid>{B83EAE53-A59D-4BA2-A940-469254A524E3}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>OHClient</RootNamespace>
+    <RootNamespace>TCPClientDLL</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -41,8 +41,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <LibraryPath>E:\Projects\CPP\boost\stage\lib\x32;$(SolutionDir)\Debug;$(VCInstallDir)lib;$(VCInstallDir)atlmfc\lib;$(WindowsSDK_LibraryPath_x86)</LibraryPath>
     <IncludePath>E:\Projects\CPP\boost;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)\Debug;E:\Projects\CPP\boost\stage\lib\x32;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -53,15 +53,17 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;OHCLIENT_EXPORTS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;TCPCLIENTDLL_EXPORTS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>false</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir)\Debug;$(SolutionDir)\CfgWrtr;$(SolutionDir)\CfgPrsr;$(SolutionDir)\Cfg;$(SolutionDir)\TCPCom;$(SolutionDir)\Msg;$(SolutionDir)\Messenger;$(SolutionDir)\TCPClientDLL</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\Cfg;$(SolutionDir)\CfgWrtr;$(SolutionDir)\CfgPrsr;$(SolutionDir)\Msg;$(SolutionDir)\Messenger;$(SolutionDir)\TCPCom</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>Cfg.lib;TCPClientDLL.lib;OpenHoldem.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)\Debug</AdditionalLibraryDirectories>
+      <AdditionalDependencies>TCPCom.lib;Messenger.lib;Cfg.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <ModuleDefinitionFile>
+      </ModuleDefinitionFile>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -72,7 +74,7 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;OHCLIENT_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;TCPCLIENTDLL_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
     </ClCompile>
     <Link>
@@ -80,15 +82,16 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <ModuleDefinitionFile>TCPClientDLL.def</ModuleDefinitionFile>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="OHUser.cpp" />
+    <ClInclude Include="IClient.h" />
+    <ClInclude Include="TCPClient.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="OHImports.h" />
-    <ClInclude Include="OHUser.h" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="TCPClient.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

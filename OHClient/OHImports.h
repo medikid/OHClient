@@ -15,11 +15,6 @@
 #include <boost/phoenix/phoenix.hpp>
 #include <array>
 
-#include <boost/fusion/container/vector.hpp> 
-#include <boost/fusion/include/vector_tie.hpp> 
-#include <boost/fusion/include/adapt_struct.hpp> 
-#include <boost/fusion/include/equal_to.hpp> 
-#include <boost/fusion/include/tag_of.hpp>
 
 extern "C" __declspec(dllimport) double __stdcall GetSymbolFromDll(const int chair, const char* name, bool& iserr); //imported function, we need OH.lib
 	extern "C" __declspec(dllimport) void   __stdcall SendChatMessageFomDll(const char *msg);
@@ -38,6 +33,7 @@ struct holdem_player {
 	unsigned char   m_balance_known : 1 ;       //0=no 1=yes
 	unsigned char   m_fillerbits    : 6 ;       //filler bits
 	unsigned char   m_fillerbyte        ;       //filler bytes
+
 } ;
 
 struct holdem_state {
@@ -56,17 +52,6 @@ struct holdem_state {
 				holdem_player   m_player[10]        ;       //player records
 			} ;
 
-BOOST_FUSION_ADAPT_STRUCT( holdem_state, \
-						  (char, m_title[64]) \
-						  (double, m_pot[10]) \
-						  (unsigned char, m_cards[5]) \
-						  (unsigned char, m_is_playing) \
-						  (unsigned char, m_is_posting) \
-						  (unsigned char, m_fillterbits) \
-						  (unsigned char, m_fillterbyte) \
-						  (unsigned char, m_dealer_chair) \
-						  (holdem_player, m_player[10]) \
-						  ); \
 
 /*
 // looks complicated and inflexible 

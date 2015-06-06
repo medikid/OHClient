@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OHDll", "OHDll\OHDll.vcxproj", "{78B1EACC-7857-495E-BA2B-CFD0F802B35E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{78B1EACC-7857-495E-BA2B-CFD0F802B35E}.Debug|Win32.ActiveCfg = Debug|Win32
+		{78B1EACC-7857-495E-BA2B-CFD0F802B35E}.Debug|Win32.Build.0 = Debug|Win32
+		{78B1EACC-7857-495E-BA2B-CFD0F802B35E}.Release|Win32.ActiveCfg = Release|Win32
+		{78B1EACC-7857-495E-BA2B-CFD0F802B35E}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
