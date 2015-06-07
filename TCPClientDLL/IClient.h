@@ -27,27 +27,27 @@ namespace TCP {
 
 extern "C" class  IClient{
 public:
-	virtual bool __cdecl loadConfig()=0;
+	virtual bool TCP_CLIENT_EXP loadConfig()=0;
 
-	virtual void __cdecl SetupIOService(boost::asio::io_service& IOService)=0;
-	virtual bool __cdecl Start(boost::asio::io_service& IOService)=0;
-	virtual bool __cdecl Stop(boost::asio::io_service& IOService)=0;
+	virtual void TCP_CLIENT_EXP SetupIOService(boost::asio::io_service& IOService)=0;
+	virtual bool TCP_CLIENT_EXP Start(boost::asio::io_service& IOService)=0;
+	virtual bool TCP_CLIENT_EXP Stop(boost::asio::io_service& IOService)=0;
 
-	virtual bool __cdecl Connect(boost::asio::io_service& IOService) = 0;
-	virtual bool __cdecl Disconnect(boost::asio::io_service& IOService)=0;
+	virtual bool TCP_CLIENT_EXP Connect(boost::asio::io_service& IOService) = 0;
+	virtual bool TCP_CLIENT_EXP Disconnect(boost::asio::io_service& IOService)=0;
 
-	virtual  MESSENGER::messenger_ptr __cdecl getMessenger()=0;
-	virtual TCP::connection_ptr __cdecl GetConnectionHandle()=0;
+	virtual  MESSENGER::messenger_ptr TCP_CLIENT_EXP getMessenger()=0;
+	virtual TCP::connection_ptr TCP_CLIENT_EXP GetConnectionHandle()=0;
 
-	virtual void __cdecl SendMsg()=0;
-	virtual void __cdecl SendMsgAsync()=0;
-	virtual void __cdecl RcvMsg()=0;
-	virtual void __cdecl RcvMsgAsync()=0;
+	virtual void TCP_CLIENT_EXP SendMsg()=0;
+	virtual void TCP_CLIENT_EXP SendMsgAsync()=0;
+	virtual void TCP_CLIENT_EXP RcvMsg()=0;
+	virtual void TCP_CLIENT_EXP RcvMsgAsync()=0;
 
-	virtual void* __cdecl CreateTCPClientInstance(boost::asio::io_service& IOService)=0;
+	virtual void* TCP_CLIENT_EXP CreateTCPClientInstance(boost::asio::io_service& IOService)=0;
 
-	virtual void __cdecl sockRead(const boost::system::error_code& e, TCP::connection_ptr conn)=0;
-	virtual void __cdecl sockWrite(const boost::system::error_code& e, TCP::connection_ptr conn)=0;
+	virtual void TCP_CLIENT_EXP sockRead(const boost::system::error_code& e, TCP::connection_ptr conn)=0;
+	virtual void TCP_CLIENT_EXP sockWrite(const boost::system::error_code& e, TCP::connection_ptr conn)=0;
 
 
 };

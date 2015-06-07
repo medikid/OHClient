@@ -38,12 +38,16 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IncludePath>E:\Projects\CPP\boost;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)\Debug;E:\Projects\CPP\boost\stage\lib\x32;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <SDLCheck>true</SDLCheck>
+      <SDLCheck>false</SDLCheck>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -64,6 +68,36 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Cfg.h" />
+    <ClInclude Include="CfgProtocol.h" />
+    <ClInclude Include="CfgPrsr.h" />
+    <ClInclude Include="CfgWrtr.h" />
+    <ClInclude Include="DataCom.h" />
+    <ClInclude Include="IClient.h" />
+    <ClInclude Include="INI.h" />
+    <ClInclude Include="Messenger.h" />
+    <ClInclude Include="Msg.h" />
+    <ClInclude Include="MsgProcessor.h" />
+    <ClInclude Include="MsgQ.h" />
+    <ClInclude Include="OHImports.h" />
+    <ClInclude Include="OHUser.h" />
+    <ClInclude Include="SockHandler.h" />
+    <ClInclude Include="TCPClient.h" />
+    <ClInclude Include="TCPCom.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Cfg.cpp" />
+    <ClCompile Include="CfgPrsr.cpp" />
+    <ClCompile Include="CfgWrtr.cpp" />
+    <ClCompile Include="INI.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Messenger.cpp" />
+    <ClCompile Include="Msg.cpp" />
+    <ClCompile Include="MsgProcessor.cpp" />
+    <ClCompile Include="OHUser.cpp" />
+    <ClCompile Include="SockHandler.cpp" />
+    <ClCompile Include="TCPClient.cpp" />
+    <ClCompile Include="TCPCom.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

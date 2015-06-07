@@ -7,14 +7,26 @@
 #define TCP_CLIENT_EXP __declspec(dllimport)
 #endif 	// __dll__
 
-#include "IClient.h"
+#include <boost/asio.hpp>
+#include <boost/bind.hpp>
+#include "boost\lexical_cast.hpp"
+#include <iostream>
+#include <vector>
+//#include  "TCPConn.h"// Must come before boost/serialization headers.
+#include "Messenger.h"
+#include <boost/serialization/vector.hpp>
+#include "Cfg.h"
+#include <string>
+#include <boost/thread.hpp>
+
+#include <stdio.h>
 
 namespace TCP{
 	namespace CLIENT{
 
 
 
-extern "C" class TCPClient : public IClient {
+class TCPClient {
 public:
 	connection_ptr conn_;
 	MESSENGER::messenger_ptr messenger_;
@@ -54,27 +66,27 @@ public:
 		
 	}
 	virtual ~TCPClient(){}
-	bool __cdecl loadConfig();
+	bool loadConfig();
 
-	void __cdecl SetupIOService(boost::asio::io_service& IOService);
-	bool __cdecl Start(boost::asio::io_service& IOService);
-	bool __cdecl Stop(boost::asio::io_service& IOService);
+	void SetupIOService(boost::asio::io_service& IOService);
+	bool Start(boost::asio::io_service& IOService);
+	bool Stop(boost::asio::io_service& IOService);
 
-	bool __cdecl Connect(boost::asio::io_service& IOService);
-	bool __cdecl Disconnect(boost::asio::io_service& IOService);
+	bool Connect(boost::asio::io_service& IOService);
+	bool Disconnect(boost::asio::io_service& IOService);
 
-	MESSENGER::messenger_ptr __cdecl getMessenger();
-	TCP::connection_ptr __cdecl GetConnectionHandle();
+	MESSENGER::messenger_ptr getMessenger();
+	TCP::connection_ptr GetConnectionHandle();
 
-	void __cdecl SendMsg();
-	void __cdecl SendMsgAsync();
-	void __cdecl RcvMsg();
-	void __cdecl RcvMsgAsync();
+	void SendMsg();
+	void SendMsgAsync();
+	void RcvMsg();
+	void RcvMsgAsync();
 
-	void __cdecl sockRead(const boost::system::error_code& e, TCP::connection_ptr conn);
-	void __cdecl sockWrite(const boost::system::error_code& e, TCP::connection_ptr conn);
+	void sockRead(const boost::system::error_code& e, TCP::connection_ptr conn);
+	void sockWrite(const boost::system::error_code& e, TCP::connection_ptr conn);
 
-	void* __cdecl CreateTCPClientInstance(boost::asio::io_service& IOService);
+	void* CreateTCPClientInstance(boost::asio::io_service& IOService);
 
 };
 	}//CLIENT

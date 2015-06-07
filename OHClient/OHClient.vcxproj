@@ -53,14 +53,14 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;OHCLIENT_EXPORTS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;OHCLIENT_EXPORTS;_CRT_SECURE_NO_WARNINGS;_HAS_ITERATOR_DEBUGGING=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>false</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir)\Debug;$(SolutionDir)\CfgWrtr;$(SolutionDir)\CfgPrsr;$(SolutionDir)\Cfg;$(SolutionDir)\TCPCom;$(SolutionDir)\Msg;$(SolutionDir)\Messenger;$(SolutionDir)\TCPClientDLL</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\CfgWrtr;$(SolutionDir)\CfgPrsr;$(SolutionDir)\Cfg;$(SolutionDir)\TCPCom;$(SolutionDir)\Msg;$(SolutionDir)\Messenger</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>Cfg.lib;TCPClientDLL.lib;OpenHoldem.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Cfg.lib;CfgPrsr.lib;CfgWrtr.lib;Messenger.lib;TCPCom.lib;TCPClientDLL.lib;OpenHoldem.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)\Debug</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
@@ -89,6 +89,12 @@
   <ItemGroup>
     <ClInclude Include="OHImports.h" />
     <ClInclude Include="OHUser.h" />
+    <ClInclude Include="TCPClient.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TCPClientDLL\TCPClientDLL.vcxproj">
+      <Project>{b83eae53-a59d-4ba2-a940-469254a524e3}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

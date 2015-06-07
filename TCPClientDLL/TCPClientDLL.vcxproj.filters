@@ -15,9 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="IClient.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="TCPClient.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -26,8 +23,10 @@
     <ClCompile Include="TCPClient.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="main.cpp">
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="TCPClientDLL.def">
       <Filter>Source Files</Filter>
-    </ClCompile>
+    </None>
   </ItemGroup>
 </Project>

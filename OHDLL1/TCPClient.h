@@ -10,7 +10,7 @@
 //#include "Messenger.h"
 //#include "MsgQ.h"
 #include <boost/serialization/vector.hpp>
-#include "Cfg.h"
+//#include "Cfg.h"
 #include <string>
 #include <boost/thread.hpp>
 

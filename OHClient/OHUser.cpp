@@ -3,7 +3,6 @@
 #include "OHUser.h"
 //#include "TCPClient.h"
 
-
 bool ClientStarted = false;
 //TCP::CLIENT::TCPClient* tClient;
 //std::vector<GAME::GS_ptr> GS_V;
@@ -20,10 +19,12 @@ pfgws_t m_pget_winholdem_symbol = NULL; // lets initiate this to null to check l
 ////////////////////////////////////
 
 void initClient(){
+				
 	//boost::asio::io_service IOService;
+	//TCP::CLIENT::TCPClient_ptr cP_(new TCP::CLIENT::TCPClient(IOService));
 	//TCP::CLIENT::TCPClient c(IOService);
 	//tClient = new TCP::CLIENT::TCPClient(IOService);
-	//c.Start(IOService);
+	//cP_->Start(IOService);
 	//GS_V.push_back( GAME::GS_ptr(new GAME::GState(IOService)));
 	ClientStarted = true;
 }

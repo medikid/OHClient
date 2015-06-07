@@ -44,7 +44,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <LibraryPath>E:\Projects\CPP\pdcurses\win32;$(SolutionDir)\Debug;E:\Projects\CPP\boost\stage\lib\x32;$(VCInstallDir)lib;$(VCInstallDir)atlmfc\lib;$(WindowsSDK_LibraryPath_x86)</LibraryPath>
-    <IncludePath>E:\Projects\CPP\boost;$(IncludePath)</IncludePath>
+    <IncludePath>E:\Projects\CPP\pdcurses;E:\Projects\CPP\boost;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
