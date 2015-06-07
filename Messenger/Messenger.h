@@ -60,80 +60,77 @@ public:
 	std::vector<unsigned short> ListConnectedPorts();
 	
 	void SendDummyMsg(const boost::system::error_code& e, connection_ptr conn){
-		Msg *s = new Msg();
-			//s->VERSION = 1.00 ; is a constant cannot modify
-			s->TO = 1234 ;
-			s->FROM = 1234 ;
-			s->COMMAND_KEY = TCP::COMMAND_KEY::COMMENT ;
-			s->COMMAND_VALUE =TCP::COMMAND_VALUE::MESSAGE ;
-			s->LAST_MSG = 0;
+		Msg s;
+			//s.VERSION = 1.00 ; is a constant cannot modify
+			s.TO = 1234 ;
+			s.FROM = 1234 ;
+			s.COMMAND_KEY = TCP::COMMAND_KEY::COMMENT ;
+			s.COMMAND_VALUE =TCP::COMMAND_VALUE::MESSAGE ;
+			s.LAST_MSG = 0;
 			//************GAME******************//
-			s->TYPE = 1 ;
-			s->ROUND =2 ;
-			s->HAND = 1234568 ;
-			s->BLIND = 0.25 ;
+			s.TYPE = 1 ;
+			s.ROUND =2 ;
+			s.HAND = 1234568 ;
+			s.BLIND = 0.25 ;
 			//************TABLE******************//
-			s->TITLE = "Harries Poker Stars Table" ;
-			s->CHAIRS = 6 ;
-			s->DEALER = 2 ;
-			s->SB = 3 ;
-			s->BB = 5 ;
-			s->POT_NO = 0 ;
-			s->POT_VALUE = 5.00 ;
+			s.TITLE = "Harries Poker Stars Table" ;
+			s.CHAIRS = 6 ;
+			s.DEALER = 2 ;
+			s.SB = 3 ;
+			s.BB = 5 ;
+			s.POT_NO = 0 ;
+			s.POT_VALUE = 5.00 ;
 			//************PLAYER******************//
-			s->NAME = "Hero is" ;
-			s->POSITION = 1 ;
-			s->BALANCE = 3.00 ;
-			s->POCKET_CARD_1 = 12 ;
-			s->POCKET_CARD_2 = 25 ;
-			s->ACTION = 2 ;
-			s->BET = 1.00 ;
-			s->IS_SEATED = 1 ;
-			s->IS_ACTIVE = 1 ;
-			s->IS_MY_TURN = 0 ;
+			s.NAME = "Hero is" ;
+			s.POSITION = 1 ;
+			s.BALANCE = 3.00 ;
+			s.POCKET_CARD_1 = 12 ;
+			s.POCKET_CARD_2 = 25 ;
+			s.ACTION = 2 ;
+			s.BET = 1.00 ;
+			s.IS_SEATED = 1 ;
+			s.IS_ACTIVE = 1 ;
+			s.IS_MY_TURN = 0 ;
 			//************MISC******************//
-			s->JSON_STRING = "JSON {String::Value}" ;
-			s->SUMMARY = "This is a message from summary" ;
+			s.JSON_STRING = "JSON {String::Value}" ;
+			s.SUMMARY = "This is a message from summary" ;
 
-				msgQ_.Add(msgQ_.O, *s);
-				free(s);
+				msgQ_.Add(msgQ_.O, s);
 
-
-			s = new Msg();
-			s->TO = 1234 ;
-			s->FROM = 1234 ;
-			s->COMMAND_KEY = TCP::COMMAND_KEY::COMMENT ;
-			s->COMMAND_VALUE =TCP::COMMAND_VALUE::MESSAGE ;
-			s->LAST_MSG = 1;
+			s.TO = 1234 ;
+			s.FROM = 1234 ;
+			s.COMMAND_KEY = TCP::COMMAND_KEY::COMMENT ;
+			s.COMMAND_VALUE =TCP::COMMAND_VALUE::MESSAGE ;
+			s.LAST_MSG = 1;
 			//************GAME******************//
-			s->TYPE = 1 ;
-			s->ROUND =2 ;
-			s->HAND = 1234568 ;
-			s->BLIND = 0.25 ;
+			s.TYPE = 1 ;
+			s.ROUND =2 ;
+			s.HAND = 1234568 ;
+			s.BLIND = 0.25 ;
 			//************TABLE******************//
-			s->TITLE = "Harries Poker Stars Table" ;
-			s->CHAIRS = 6 ;
-			s->DEALER = 2 ;
-			s->SB = 3 ;
-			s->BB = 5 ;
-			s->POT_NO = 0 ;
-			s->POT_VALUE = 5.00 ;
+			s.TITLE = "Harries Poker Stars Table" ;
+			s.CHAIRS = 6 ;
+			s.DEALER = 2 ;
+			s.SB = 3 ;
+			s.BB = 5 ;
+			s.POT_NO = 0 ;
+			s.POT_VALUE = 5.00 ;
 			//************PLAYER******************//
-			s->NAME = "Hero is" ;
-			s->POSITION = 1 ;
-			s->BALANCE = 3.00 ;
-			s->POCKET_CARD_1 = 12 ;
-			s->POCKET_CARD_2 = 25 ;
-			s->ACTION = 2 ;
-			s->BET = 1.00 ;
-			s->IS_SEATED = 1 ;
-			s->IS_ACTIVE = 1 ;
-			s->IS_MY_TURN = 0 ;
+			s.NAME = "Hero is" ;
+			s.POSITION = 1 ;
+			s.BALANCE = 3.00 ;
+			s.POCKET_CARD_1 = 12 ;
+			s.POCKET_CARD_2 = 25 ;
+			s.ACTION = 2 ;
+			s.BET = 1.00 ;
+			s.IS_SEATED = 1 ;
+			s.IS_ACTIVE = 1 ;
+			s.IS_MY_TURN = 0 ;
 			//************MISC******************//
-			s->JSON_STRING = "JSON {String::Value}" ;
-			s->SUMMARY = "Second message from summary" ;
+			s.JSON_STRING = "JSON {String::Value}" ;
+			s.SUMMARY = "Second message from summary" ;
 
-			msgQ_.Add(msgQ_.O, *s);
+			msgQ_.Add(msgQ_.O, s);
 			msgQ_.triggerSocketCheck();
 
 		conn->asyncSendMsg(msgQ_.QOutgoing, boost::bind(&Messenger::handleWrite, this, boost::asio::placeholders::error, conn));

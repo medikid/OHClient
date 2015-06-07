@@ -28,7 +28,6 @@ TCPCOM_API void TCPCom::HandleConnect(const boost::system::error_code& e,  boost
 	std::cout << "Calling TCPCom->HandleConnect()" << std::endl;
 	if (!e)
 	{
-		std::cout << "TCPCom->HandleConnect() - Inside - If No error" << std::endl;
 		// Successfully established connection. Start operation to read the list
 		// of stocks. The connection::async_read() function will automatically
 		// decode the data that is read from the underlying socket.
@@ -38,7 +37,6 @@ TCPCOM_API void TCPCom::HandleConnect(const boost::system::error_code& e,  boost
 	else if (endpoint_iterator != boost::asio::ip::tcp::resolver::iterator())
 	{
 		// Try the next endpoint.
-		std::cout << "TCPCom->HandleConnect() - Inside - If error and endpoint iterator" << std::endl;
 		disconnect();
 		boost::asio::ip::tcp::endpoint endpoint = *endpoint_iterator;
 
@@ -48,7 +46,6 @@ TCPCOM_API void TCPCom::HandleConnect(const boost::system::error_code& e,  boost
 	}
 	else
 	{
-		std::cout << "TCPCom->HandleConnect() - Inside - Exited with error" << std::endl;
 		// An error occurred. Log it and return. Since we are not starting a new
 		// operation the io_service will run out of work to do and the client will
 		// exit.

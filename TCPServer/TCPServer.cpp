@@ -29,11 +29,9 @@ void TCPServer::HandleAccept(const boost::system::error_code& e, TCP::connection
 		// serialize the data structure for us.
 
 
-		
+		asyncRcvMsg(conn);
 		//asyncSendMsg(conn);
 		SendMsg(conn);
-
-		asyncRcvMsg(conn);
 
 		//messenger_.Send();
 		//conn->async_read(messenger_->msgQ_.QIncoming, boost::bind(&MESSENGER::Messenger::handleRead, messenger_, boost::asio::placeholders::error, conn));
@@ -68,6 +66,4 @@ void TCPServer::RcvMsg( TCP::connection_ptr conn){
 
 void TCPServer::asyncRcvMsg( TCP::connection_ptr conn){
 	conn->asyncRcvMsg(messenger_->msgQ_.QIncoming , boost::bind(&MESSENGER::Messenger::handleRead, messenger_, boost::asio::placeholders::error, conn));
-	messenger_->msgQ_.coutQMsgs(messenger_->msgQ_.QIncoming);
-	std::cout << "Finished TCPServer->asyncRcvMsg() " << std::endl;
 }

@@ -20,7 +20,6 @@ void TCPClient::SetupIOService(boost::asio::io_service& IOService){
 }
 bool TCPClient::Start(boost::asio::io_service& IOService){
 	IOService.run();
-
 	return true;
 }
 
@@ -41,7 +40,6 @@ bool TCPClient::Connect(boost::asio::io_service& IOService){
 		messenger_->AddNewConnection(myPort, conn_);
 		messenger_->coutSummary();
 		isConnected = true;
-		SendMsg();
 		std::cout << "Connected to server at port "<< myPort << std::endl;
 	}
 
