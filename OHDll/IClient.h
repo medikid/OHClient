@@ -25,29 +25,29 @@
 namespace TCP {
 	namespace CLIENT {
 
-extern "C" class  IClient{
+class  IClient{
 public:
-	virtual bool __cdecl loadConfig()=0;
+	virtual bool  loadConfig()=0;
 
-	virtual void __cdecl SetupIOService(boost::asio::io_service& IOService)=0;
-	virtual bool __cdecl Start(boost::asio::io_service& IOService)=0;
-	virtual bool __cdecl Stop(boost::asio::io_service& IOService)=0;
+	virtual void  SetupIOService(boost::asio::io_service& IOService)=0;
+	virtual bool  Start(boost::asio::io_service& IOService)=0;
+	virtual bool  Stop(boost::asio::io_service& IOService)=0;
 
-	virtual bool __cdecl Connect(boost::asio::io_service& IOService) = 0;
-	virtual bool __cdecl Disconnect(boost::asio::io_service& IOService)=0;
+	virtual bool  Connect(boost::asio::io_service& IOService) = 0;
+	virtual bool  Disconnect(boost::asio::io_service& IOService)=0;
 
-	virtual  MESSENGER::messenger_ptr __cdecl getMessenger()=0;
-	virtual TCP::connection_ptr __cdecl GetConnectionHandle()=0;
+	virtual  MESSENGER::messenger_ptr  getMessenger()=0;
+	virtual TCP::connection_ptr  GetConnectionHandle()=0;
 
-	virtual void __cdecl SendMsg()=0;
-	virtual void __cdecl SendMsgAsync()=0;
-	virtual void __cdecl RcvMsg()=0;
-	virtual void __cdecl RcvMsgAsync()=0;
+	virtual void  SendMsg()=0;
+	virtual void  SendMsgAsync()=0;
+	virtual void  RcvMsg()=0;
+	virtual void  RcvMsgAsync()=0;
 
-	virtual void* __cdecl CreateTCPClientInstance(boost::asio::io_service& IOService)=0;
+	virtual void*  CreateTCPClientInstance(boost::asio::io_service& IOService)=0;
 
-	virtual void __cdecl sockRead(const boost::system::error_code& e, TCP::connection_ptr conn)=0;
-	virtual void __cdecl sockWrite(const boost::system::error_code& e, TCP::connection_ptr conn)=0;
+	virtual void  sockRead(const boost::system::error_code& e, TCP::connection_ptr conn)=0;
+	virtual void  sockWrite(const boost::system::error_code& e, TCP::connection_ptr conn)=0;
 
 
 };
