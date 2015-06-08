@@ -1,0 +1,17 @@
+LIBRARY TCPClientDLL
+EXPORTS
+		loadConfig
+		SetupIOService
+		Start
+		Stop
+		Connect
+		Disconnect
+		getMessenger
+		GetConnectionHandle
+		SendMsg
+		SendMsgAsync
+		RcvMsg
+		RcvMsgAsync
+		CreateTCPClientInstance
+		sockRead
+		sockWrite
