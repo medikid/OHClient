@@ -1,11 +1,6 @@
 #ifndef CFG_H
 #define CFG_H
 
-#ifdef CFG_EXPORTS
-#define CFG_API __declspec(dllexport)
-#else
-#define CFG_API __declspec(dllimport)
-#endif
 
 #include <iostream>
 #include <fstream>

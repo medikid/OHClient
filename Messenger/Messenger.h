@@ -67,12 +67,12 @@ public:
 			s.COMMAND_KEY = TCP::COMMAND_KEY::COMMENT ;
 			s.COMMAND_VALUE =TCP::COMMAND_VALUE::MESSAGE ;
 			s.LAST_MSG = 0;
-			//************GAME******************//
+			// ************GAME****************** //
 			s.TYPE = 1 ;
 			s.ROUND =2 ;
 			s.HAND = 1234568 ;
 			s.BLIND = 0.25 ;
-			//************TABLE******************//
+			// ************TABLE****************** //
 			s.TITLE = "Harries Poker Stars Table" ;
 			s.CHAIRS = 6 ;
 			s.DEALER = 2 ;
@@ -80,7 +80,7 @@ public:
 			s.BB = 5 ;
 			s.POT_NO = 0 ;
 			s.POT_VALUE = 5.00 ;
-			//************PLAYER******************//
+			// ************PLAYER****************** //
 			s.NAME = "Hero is" ;
 			s.POSITION = 1 ;
 			s.BALANCE = 3.00 ;
@@ -91,7 +91,7 @@ public:
 			s.IS_SEATED = 1 ;
 			s.IS_ACTIVE = 1 ;
 			s.IS_MY_TURN = 0 ;
-			//************MISC******************//
+			// ************MISC****************** //
 			s.JSON_STRING = "JSON {String::Value}" ;
 			s.SUMMARY = "This is a message from summary" ;
 
@@ -102,7 +102,7 @@ public:
 			s.COMMAND_KEY = TCP::COMMAND_KEY::COMMENT ;
 			s.COMMAND_VALUE =TCP::COMMAND_VALUE::MESSAGE ;
 			s.LAST_MSG = 1;
-			//************GAME******************//
+			// ************GAME****************** //
 			s.TYPE = 1 ;
 			s.ROUND =2 ;
 			s.HAND = 1234568 ;
@@ -115,7 +115,7 @@ public:
 			s.BB = 5 ;
 			s.POT_NO = 0 ;
 			s.POT_VALUE = 5.00 ;
-			//************PLAYER******************//
+			// ************PLAYER****************** //
 			s.NAME = "Hero is" ;
 			s.POSITION = 1 ;
 			s.BALANCE = 3.00 ;
@@ -126,14 +126,14 @@ public:
 			s.IS_SEATED = 1 ;
 			s.IS_ACTIVE = 1 ;
 			s.IS_MY_TURN = 0 ;
-			//************MISC******************//
+			// ************MISC****************** //
 			s.JSON_STRING = "JSON {String::Value}" ;
 			s.SUMMARY = "Second message from summary" ;
 
 			msgQ_.Add(msgQ_.O, s);
 			msgQ_.triggerSocketCheck();
 
-		conn->asyncSendMsg(msgQ_.QOutgoing, boost::bind(&Messenger::handleWrite, this, boost::asio::placeholders::error, conn));
+		//conn->asyncSendMsg(msgQ_.QOutgoing, boost::bind(&Messenger::handleWrite, this, boost::asio::placeholders::error, conn));
 	}
 
 	/// Handle completion of a write operation.

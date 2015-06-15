@@ -8,6 +8,7 @@
 #endif
 
 #include <string>
+#include <boost/shared_ptr.hpp>
 
 namespace TCP{
 
@@ -47,18 +48,20 @@ MSG_API enum EVENTS{
 };
 
 
-MSG_API struct Msg {
+MSG_API  struct Msg {
 	double VERSION;
 	int TO;
 	int FROM;
 	int COMMAND_KEY;
 	int COMMAND_VALUE;
 	int LAST_MSG;
+	int fillerbites_1;
 	//************GAME******************//
 	int TYPE; //TH_NL TH_L TH_PL
 	int ROUND; //PREFLOP, FLOP, TURN, RIVER, SHOW
 	int HAND; //
 	double BLIND;// 2.00
+	int fillerbites_2;
 	//************TABLE******************//
 	std::string TITLE;
 	int CHAIRS; //9 6
@@ -67,6 +70,7 @@ MSG_API struct Msg {
 	int BB;
 	int POT_NO;
 	double POT_VALUE;
+	int fillerbites_3;
 	//************PLAYER******************//
 	std::string NAME;
 	int	POSITION;
@@ -74,14 +78,17 @@ MSG_API struct Msg {
 	int	POCKET_CARD_1;
 	int	POCKET_CARD_2;
 	int	ACTION; // FOLD, CALL, CHECK, BET, RAISE
-	double	BET;
+	double	BET;	
+	int fillerbites_4;
 	//	ACTION_REQUEST;
 	int	IS_SEATED; //if sitting_out=0
 	int	IS_ACTIVE; //if holding cards, =1
 	int	IS_MY_TURN; //1
+	int fillerbites_5;
 	//************MISC******************//
 	std::string JSON_STRING;
 	std::string SUMMARY;
+	int fillerbites_6;
 
 	 template <typename Archive>
 	void serialize(Archive& ar, const unsigned int version)
@@ -90,13 +97,16 @@ MSG_API struct Msg {
 		ar & TO;
 		ar & FROM;
 		ar & COMMAND_KEY;
-		ar & COMMAND_VALUE;
-		//************GAME******************//
+		ar & COMMAND_VALUE;		
+		ar & LAST_MSG;
+		ar & fillerbites_1;
+		// ************GAME****************** //
 		ar & TYPE;
 		ar & ROUND;
 		ar & HAND;
 		ar & BLIND;
-		//************TABLE******************//
+		ar & fillerbites_2;
+		// ************TABLE****************** //
 		ar & TITLE;
 		ar & CHAIRS;
 		ar & DEALER;
@@ -104,7 +114,8 @@ MSG_API struct Msg {
 		ar & BB;
 		ar & POT_NO;
 		ar & POT_VALUE;
-		//************PLAYER******************//
+		ar & fillerbites_3;
+		// ************PLAYER****************** //
 		ar & NAME;
 		ar & POSITION;
 		ar & BALANCE;
@@ -112,14 +123,19 @@ MSG_API struct Msg {
 		ar & POCKET_CARD_2;
 		ar & ACTION;
 		ar & BET;
+		ar & fillerbites_4;
 		ar & IS_SEATED;
 		ar & IS_ACTIVE;
 		ar & IS_MY_TURN;
-		//************MISC******************//
+		ar & fillerbites_5;
+		// ************MISC****************** //
 		ar & JSON_STRING;
 		ar & SUMMARY;
+		ar & fillerbites_6;
 	}
-}Message;
+} Message;
+
+typedef boost::shared_ptr<Msg> Msg_ptr;
 
 }//namespace TCP
 

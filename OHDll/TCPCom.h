@@ -5,11 +5,6 @@
 #include <stdio.h>
 #include "DataCom.h"
 
-#ifdef TCPCOM_EXPORTS
-#define TCPCOM_API __declspec(dllexport)
-#else
-#define TCPCOM_API __declspec(dllimport)
-#endif
 
 namespace TCP {
 

@@ -15,6 +15,7 @@
 #include <boost/phoenix/phoenix.hpp>
 #include <array>
 
+#include "TCPClient.h"
 
 extern "C" __declspec(dllimport) double __stdcall GetSymbolFromDll(const int chair, const char* name, bool& iserr); //imported function, we need OH.lib
 	extern "C" __declspec(dllimport) void   __stdcall SendChatMessageFomDll(const char *msg);

@@ -1,11 +1,6 @@
 #ifndef TCP_CLIENT_H
 #define TCP_CLIENT_H
 
-#ifdef __dll__
-#define TCP_CLIENT_EXP __declspec(dllexport)
-#else
-#define TCP_CLIENT_EXP __declspec(dllimport)
-#endif 	// __dll__
 
 #include "IClient.h"
 
@@ -18,7 +13,6 @@ class TCPClient : public IClient {
 public:
 	connection_ptr conn_;
 	MESSENGER::messenger_ptr messenger_;
-	MESSENGER::MsgQ Q;
 	CONFIG* config_;
 	bool isConnected;
 	string myAddress;
@@ -29,7 +23,7 @@ public:
 
 
 	TCPClient(boost::asio::io_service& IOService):conn_(new TCPCom(IOService)), isConnected(false),
-		messenger_(new MESSENGER::Messenger(IOService)),config_(new CONFIG("Settings/ClientConfig.ini")),Q(IOService){
+		messenger_(new MESSENGER::Messenger(IOService)),config_(new CONFIG("Settings/ClientConfig.ini")){
 
 		loadConfig();
 		Connect(IOService);

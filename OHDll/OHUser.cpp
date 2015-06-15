@@ -1,9 +1,9 @@
-#define OHUSER_EXPORTS
 
 #include "OHUser.h"
 
 bool ClientStarted = false;
-//TCP::CLIENT::TCPClient* tClient;
+
+
 //std::vector<GAME::GS_ptr> GS_V;
 
 ////////////////////////////////////
@@ -18,15 +18,21 @@ pfgws_t m_pget_winholdem_symbol = NULL; // lets initiate this to null to check l
 ////////////////////////////////////
 
 void initClient(){
+		boost::asio::io_service IOService;
+		TCP::CLIENT::TCPClient cP_(IOService);
+		//boost::thread_group tg;
+		cP_.Start(IOService);
+		ClientStarted = true;
+		//tg.join_all();
 				
-	boost::asio::io_service IOService;
-	TCP::CLIENT::TCPClient cP_(IOService);
+	//boost::asio::io_service IOService;
+	//TCP::CLIENT::TCPClient cP_(IOService);
 	//cP_(new TCP::CLIENT::TCPClient);
 	//tClient = new TCP::CLIENT::TCPClient(IOService);
-	cP_.Start(IOService);
+	
 	//c.Start(IOService);
 	//GS_V.push_back( GAME::GS_ptr(new GAME::GState(IOService)));
-	ClientStarted = true;
+	
 }
 
 
@@ -198,13 +204,13 @@ void print_card(unsigned char c_card){
 /////////////////////////////////////////////////////
 //WINHOLDEM RUNTIME ENTRY POINT
 /////////////////////////////////////////////////////
-OHUSER_API double process_message (const char* pmessage, const void* param) {
+double process_message (const char* pmessage, const void* param) {
         if (pmessage==NULL) { return 0; }
         if (param==NULL) { return 0; }
 
         if (strcmp(pmessage,"state")==0) {
 				//holdem_state *state = (holdem_state*) param;
-				if (ClientStarted != true){ initClient(); }
+			//	if (ClientStarted != true){ initClient(); }
 				return process_state( (holdem_state*) param );
         }
 

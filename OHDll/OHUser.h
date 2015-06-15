@@ -11,7 +11,7 @@
 
 
 typedef double (*process_message_t)(const char* message, const void* param );
-OHUSER_API double process_message( const char* message, const void* param );
+double process_message( const char* message, const void* param );
 typedef double (*pfgws_t)( int c, const char* psym, bool& iserr );
 
 extern  pfgws_t m_pget_winholdem_symbol; //gws is outdated now

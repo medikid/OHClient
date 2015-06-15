@@ -1,12 +1,6 @@
 #ifndef MSG_H //VERSION:1.00
 #define MSG_H
 
-#ifdef MSG_EXPORTS
-#define MSG_API __declspec(dllexport)
-#else
-#define MSG_API __declspec(dllimport)
-#endif
-
 #include <string>
 #include <boost/shared_ptr.hpp>
 
@@ -47,18 +41,20 @@ namespace TCP{
 };
 
 
-typedef struct Msg {
+struct Msg {
 	double VERSION;
 	int TO;
 	int FROM;
 	int COMMAND_KEY;
 	int COMMAND_VALUE;
 	int LAST_MSG;
+	unsigned int fillerbites_1;
 	//************GAME******************//
 	int TYPE; //TH_NL TH_L TH_PL
 	int ROUND; //PREFLOP, FLOP, TURN, RIVER, SHOW
 	int HAND; //
 	double BLIND;// 2.00
+	unsigned int fillerbites_2;
 	//************TABLE******************//
 	std::string TITLE;
 	int CHAIRS; //9 6
@@ -67,6 +63,7 @@ typedef struct Msg {
 	int BB;
 	int POT_NO;
 	double POT_VALUE;
+	unsigned int fillerbites_3;
 	//************PLAYER******************//
 	std::string NAME;
 	int	POSITION;
@@ -79,9 +76,12 @@ typedef struct Msg {
 	int	IS_SEATED; //if sitting_out=0
 	int	IS_ACTIVE; //if holding cards, =1
 	int	IS_MY_TURN; //1
+	unsigned int fillerbites_4;
+	unsigned int fillerbites_5;
 	//************MISC******************//
 	std::string JSON_STRING;
 	std::string SUMMARY;
+	unsigned int fillerbites_6;
 
 	 template <typename Archive>
 	void serialize(Archive& ar, const unsigned int version)
@@ -90,12 +90,15 @@ typedef struct Msg {
 		ar & TO;
 		ar & FROM;
 		ar & COMMAND_KEY;
-		ar & COMMAND_VALUE;
+		ar & COMMAND_VALUE;		
+		ar & LAST_MSG;
+		ar & fillerbites_1;
 		//************GAME******************//
 		ar & TYPE;
 		ar & ROUND;
 		ar & HAND;
 		ar & BLIND;
+		ar & fillerbites_2;
 		//************TABLE******************//
 		ar & TITLE;
 		ar & CHAIRS;
@@ -104,6 +107,7 @@ typedef struct Msg {
 		ar & BB;
 		ar & POT_NO;
 		ar & POT_VALUE;
+		ar & fillerbites_3;
 		//************PLAYER******************//
 		ar & NAME;
 		ar & POSITION;
@@ -115,11 +119,14 @@ typedef struct Msg {
 		ar & IS_SEATED;
 		ar & IS_ACTIVE;
 		ar & IS_MY_TURN;
+		ar & fillerbites_4;
+		ar & fillerbites_5;
 		//************MISC******************//
 		ar & JSON_STRING;
 		ar & SUMMARY;
+		ar & fillerbites_6;
 	}
-}Message;
+};
 
 typedef boost::shared_ptr<Msg> Msg_ptr;
 

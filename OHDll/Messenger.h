@@ -1,12 +1,6 @@
 #ifndef MESSENGER_H
 #define MESSENGER_H
 
-#ifdef MESSENGER_EXPORTS
-#define MESSENGER_API __declspec(dllexport)
-#else
-#define MESSENGER_API __declspec(dllimport)
-#endif
-
 #include <boost\asio.hpp>
 #include <boost\lexical_cast.hpp>
 #include "MsgQ.h"
@@ -60,6 +54,7 @@ public:
 	std::vector<unsigned short> ListConnectedPorts();
 	
 	void SendDummyMsg(const boost::system::error_code& e, connection_ptr conn){
+		printf("Writing SendDummyMsg() ");
 		/*
 		Msg_ptr s(new Msg());
 			//s->VERSION = 1.00 ; is a constant cannot modify
@@ -131,12 +126,13 @@ public:
 			// ************MISC****************** //
 			s->JSON_STRING = "JSON {String::Value}" ;
 			s->SUMMARY = "Second message from summary" ; */
-		Msg s = {0};
+			Msg s = {0};
+			s.SUMMARY = "Test summary";
 
-			msgQ_.Add(msgQ_.O, s);
-			msgQ_.triggerSocketCheck();
+			//msgQ_.Add(msgQ_.O, s);
+			//msgQ_.triggerSocketCheck();
 
-		conn->asyncSendMsg(msgQ_.QOutgoing, boost::bind(&Messenger::handleWrite, this, boost::asio::placeholders::error, conn)); 
+		//conn->asyncSendMsg(msgQ_.QOutgoing, boost::bind(&Messenger::handleWrite, this, boost::asio::placeholders::error, conn)); 
 	}
 
 	/// Handle completion of a write operation.

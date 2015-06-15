@@ -4,7 +4,6 @@
 #include <boost/bind.hpp>
 #include <boost\shared_ptr.hpp>
 #include "SockHandler.h"
-#include "Msg.h"
 #include <boost/serialization/vector.hpp>
 #include <vector>
 #include "MsgProcessor.h"

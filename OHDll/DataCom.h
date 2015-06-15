@@ -42,20 +42,20 @@ public:
 //Serialize data and load it into outbound_data_. Prepare header, load into outbound_header
   template<typename T, typename Handler, typename U>
   void serializeData(const T& t, Handler handler, U& u){
-/*	std::cout << "Calling DataCom->SerializeData. " <<  std::endl;
+	std::cout << "Calling DataCom->SerializeData. " <<  std::endl;
 
 	std::ostringstream archive_stream;
     boost::archive::text_oarchive archive(archive_stream);
     archive << t;
 	outbound_data_ = archive_stream.str();
-*/
+
 	//std::cout << "Serialized Data("<<outbound_data_.size() <<"kb) ready to send: " << archive_stream.str() << std::endl;
   }
 
   //deserialize received data and load it into inbound_data_
   template<typename T, typename Handler, typename U>
   void deserializeData(T& t, Handler handler, U& u){
-	/*	std::cout << "Calling DataCom->DeSerializeData. " <<  std::endl;
+		std::cout << "Calling DataCom->DeSerializeData. " <<  std::endl;
 
 		std::string archive_data(&inbound_data_[0], inbound_data_.size());
         std::istringstream archive_stream(archive_data);
@@ -63,7 +63,7 @@ public:
         archive >> t;
 
 		std::cout << "DeSerialized Data ("<< inbound_data_.size() << "kb) ready to receive: " <<  archive_stream.str() << std::endl;
-		*/
+		
   }
 
   //prepare header for outbound data, size

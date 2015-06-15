@@ -1,6 +1,5 @@
-#include "Msg.h"
 #include <iostream>
-
+#include "Msg.h"
 
 namespace TCP{
 namespace MESSENGER{
@@ -11,16 +10,16 @@ class MsgProcessor{
 public:
 	
 	bool processIncoming(Msg msg){
-	msg_ = &msg;
-	switch(msg_->COMMAND_KEY){
-	case TCP::COMMAND_KEY::COMMENT :
-		switch(msg_->COMMAND_VALUE){
-		case TCP::COMMAND_VALUE::MESSAGE:
-			std::cout<<"Rcvd("<< msg_->FROM <<"):" << msg_->SUMMARY <<std::endl;
+		msg_ = &msg;
+		switch(msg_->COMMAND_KEY){
+		case TCP::COMMAND_KEY::COMMENT :
+			switch(msg_->COMMAND_VALUE){
+			case TCP::COMMAND_VALUE::MESSAGE:
+				std::cout<<"Rcvd("<< msg_->FROM <<"):" << msg_->SUMMARY <<std::endl;
+				break;
+			}
 			break;
 		}
-		break;
-	}
 	return true;
 }
 

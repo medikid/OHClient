@@ -1,11 +1,6 @@
 #ifndef ICLIENT_H
 #define ICLIENT_H
 
-#ifdef __dll__
-#define TCP_CLIENT_EXP __declspec(dllexport)
-#else
-#define TCP_CLIENT_EXP __declspec(dllimport)
-#endif 	// __dll__
 
 #include <boost/asio.hpp>
 #include <boost/bind.hpp>

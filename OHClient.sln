@@ -31,6 +31,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OHDLL", "OHDLL1\OHDLL1.vcxp
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TCPClientDLL", "TCPClientDLL\TCPClientDLL.vcxproj", "{B83EAE53-A59D-4BA2-A940-469254A524E3}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AsyncClient", "AsyncClient\AsyncClient.vcxproj", "{1FD7E169-E8CF-4979-AF56-117B737DAD5C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -85,6 +87,10 @@ Global
 		{B83EAE53-A59D-4BA2-A940-469254A524E3}.Debug|Win32.Build.0 = Debug|Win32
 		{B83EAE53-A59D-4BA2-A940-469254A524E3}.Release|Win32.ActiveCfg = Release|Win32
 		{B83EAE53-A59D-4BA2-A940-469254A524E3}.Release|Win32.Build.0 = Release|Win32
+		{1FD7E169-E8CF-4979-AF56-117B737DAD5C}.Debug|Win32.ActiveCfg = Debug|Win32
+		{1FD7E169-E8CF-4979-AF56-117B737DAD5C}.Debug|Win32.Build.0 = Debug|Win32
+		{1FD7E169-E8CF-4979-AF56-117B737DAD5C}.Release|Win32.ActiveCfg = Release|Win32
+		{1FD7E169-E8CF-4979-AF56-117B737DAD5C}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

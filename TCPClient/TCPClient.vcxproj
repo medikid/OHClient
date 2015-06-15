@@ -91,18 +91,21 @@
     <ClInclude Include="TCPClient.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\TCPClientDLL\TCPClient.def" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\Cfg\Cfg.vcxproj">
       <Project>{ae006269-71be-42e1-b13e-b07de08a7890}</Project>
     </ProjectReference>
     <ProjectReference Include="..\Messenger\Messenger.vcxproj">
       <Project>{85e36aed-922f-4612-ba3c-0490fec86adc}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\Msg\Msg.vcxproj">
+      <Project>{9da77d29-1608-44e1-97d5-f1b08409101c}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\TCPCom\TCPCom.vcxproj">
       <Project>{e758404a-1896-4f96-b03c-a717e245c88f}</Project>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\TCPClientDLL\TCPClient.def" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

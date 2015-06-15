@@ -80,7 +80,7 @@ namespace TCP {
 			dataCom_.sendData(t, handler, this);
 			*/
 
-			std::cout <<"DataHandler->SendMsg sent message"<< std::endl;
+			std::cout <<"TCPCom->asyncSendMsg sent message"<< std::endl;
 
 		}
 
