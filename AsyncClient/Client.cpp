@@ -14,7 +14,7 @@
 #include <vector>
 #include "Connection.h" // Must come before boost/serialization headers.
 #include <boost/serialization/vector.hpp>
-#include "Stock.h"
+#include "Msg.h"
 
 namespace s11n_example {
 
@@ -49,9 +49,8 @@ public:
       // Successfully established connection. Start operation to read the list
       // of stocks. The connection::async_read() function will automatically
       // decode the data that is read from the underlying socket.
-      connection_.async_read(stocks_,
-          boost::bind(&Client::handle_read, this,
-            boost::asio::placeholders::error));
+		std::printf("Client connected to Server at 1234");
+      connection_.async_read(msg_, boost::bind(&Client::handle_read, this, boost::asio::placeholders::error));
     }
     else if (endpoint_iterator != boost::asio::ip::tcp::resolver::iterator())
     {
@@ -77,19 +76,50 @@ public:
     if (!e)
     {
       // Print out the data that was received.
-      for (std::size_t i = 0; i < stocks_.size(); ++i)
+      for (std::size_t i = 0; i < msg_.size(); ++i)
       {
-        std::cout << "Stock number " << i << "\n";
-        std::cout << "  code: " << stocks_[i].code << "\n";
-        std::cout << "  name: " << stocks_[i].name << "\n";
-        std::cout << "  open_price: " << stocks_[i].open_price << "\n";
-        std::cout << "  high_price: " << stocks_[i].high_price << "\n";
-        std::cout << "  low_price: " << stocks_[i].low_price << "\n";
-        std::cout << "  last_price: " << stocks_[i].last_price << "\n";
-        std::cout << "  buy_price: " << stocks_[i].buy_price << "\n";
-        std::cout << "  buy_quantity: " << stocks_[i].buy_quantity << "\n";
-        std::cout << "  sell_price: " << stocks_[i].sell_price << "\n";
-        std::cout << "  sell_quantity: " << stocks_[i].sell_quantity << "\n";
+		  std::cout << "#################### Received MESSAGE-" << i << " ############## \n" ;
+        std::cout << "MsgQ has " << i << "msgs." << std::endl;
+
+						std::cout << "//************MsgHeader****************//" << "\n";
+						std::cout << "  Version#: " << msg_[i].VERSION << "\n";
+						std::cout << "  To: " << msg_[i].TO << "\n";
+						std::cout << "  From: " << msg_[i].FROM << "\n";
+						std::cout << "  CommandKey: " << msg_[i].COMMAND_KEY << "\n";
+						std::cout << "  CommandValue: " << msg_[i].COMMAND_VALUE << "\n";
+						std::cout << "  LastRecvd: " << msg_[i].LAST_MSG << "\n";
+						std::cout << "//************GAME******************//" << "\n";
+						std::cout << "  GameType: " << msg_[i].TYPE << "\n";
+						std::cout << "  GameRound: " << msg_[i].ROUND << "\n";
+						std::cout << "  GameHand#: " << msg_[i].HAND << "\n";
+						std::cout << "  GameBlind: " << msg_[i].BLIND << "\n";
+						std::cout << "//************TABLE******************//" << "\n";
+						std::cout << "  TableName: " << msg_[i].TITLE<< "\n";
+						std::cout << "  TableChairs#: " << msg_[i].CHAIRS<< "\n";
+						std::cout << "  TableDealer: " << msg_[i].DEALER << "\n";
+						std::cout << "  TableSmallBlind#: " << msg_[i].SB << "\n";
+						std::cout << "  TableBigBlind#: " << msg_[i].BB << "\n";
+						std::cout << "  TablePot#: " << msg_[i].POT_NO << "\n";
+						std::cout << "  TablePotValue#: " << msg_[i].POT_VALUE << "\n";
+						std::cout << "//************PLAYER******************//" << "\n";
+						std::cout << "  PlayerName: " << msg_[i].NAME << "\n";
+						std::cout << "  PlayerPosition: " << msg_[i].POSITION << "\n";
+						std::cout << "  PlayerBalance: " << msg_[i].BALANCE << "\n";
+						std::cout << "  PlayerPocket#1: " << msg_[i].POCKET_CARD_1 << "\n";
+						std::cout << "  PlayerPocket#2: " << msg_[i].POCKET_CARD_2 << "\n";
+						std::cout << "  PlayerAction: " << msg_[i].ACTION << "\n";
+						std::cout << "  PlayerBet: " << msg_[i].BET << "\n";
+						//std::cout << "//	ACTION_REQUEST;
+						std::cout << "  PlayerIsSeated: " << msg_[i].IS_SEATED << "\n";
+						std::cout << "  PlayerIsActive: " << msg_[i].IS_ACTIVE << "\n";
+						std::cout << "  PlayerIsMyTurn: " << msg_[i].IS_MY_TURN << "\n";
+						std::cout << "//************MISC******************//" << "\n";
+						std::cout << "  JSON_String#: " << msg_[i].JSON_STRING << "\n";
+						std::cout << "  MsgSummary: " << msg_[i].SUMMARY << "\n";
+
+						std::cout << "\n";
+
+
       }
     }
     else
@@ -107,7 +137,7 @@ private:
   Connection connection_;
 
   /// The data received from the server.
-  std::vector<Stock> stocks_;
+  std::vector<Msg> msg_;
 };
 
 } // namespace s11n_example
@@ -116,16 +146,12 @@ int main(int argc, char* argv[])
 {
   try
   {
-    // Check command line arguments.
-    if (argc != 3)
-    {
-      std::cerr << "Usage: client <host> <port>" << std::endl;
-      return 1;
-    }
-
+    
     boost::asio::io_service io_service;
-    s11n_example::Client client(io_service, argv[1], argv[2]);
+    s11n_example::Client client(io_service, "localhost", "1234");
     io_service.run();
+
+	std::cin.get();
   }
   catch (std::exception& e)
   {

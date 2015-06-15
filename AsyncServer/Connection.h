@@ -65,7 +65,9 @@ public:
     {
       // Something went wrong, inform the caller.
       boost::system::error_code error(boost::asio::error::invalid_argument);
-      socket_.io_service().post(boost::bind(handler, error));
+      //socket_.io_service().post(boost::bind(handler, error));
+	  //socket_.io_service().post(boost::bind(handler, error));
+	  //post(boost::bind(handler, error));
       return;
     }
     outbound_header_ = header_stream.str();
@@ -83,8 +85,14 @@ public:
   void async_read(T& t, Handler handler)
   {
     // Issue a read operation to read exactly the number of bytes in a header.
-    void (Connection::*f)(const boost::system::error_code&,  T&, boost::tuple<Handler>)  = &Connection::handle_read_header<T, Handler>;
-    boost::asio::async_read(socket_, boost::asio::buffer(inbound_header_),  boost::bind(f, this, boost::asio::placeholders::error, boost::ref(t),  boost::make_tuple(handler)));
+    void (Connection::*f)(
+        const boost::system::error_code&,
+        T&, boost::tuple<Handler>)
+      = &Connection::handle_read_header<T, Handler>;
+    boost::asio::async_read(socket_, boost::asio::buffer(inbound_header_),
+        boost::bind(f,
+          this, boost::asio::placeholders::error, boost::ref(t),
+          boost::make_tuple(handler)));
   }
 
   /// Handle a completed read of a message header. The handler is passed using
