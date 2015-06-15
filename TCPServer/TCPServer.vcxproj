@@ -42,6 +42,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <LibraryPath>$(SolutionDir)\Debug;E:\Projects\CPP\boost\stage\lib\x32;$(LibraryPath)</LibraryPath>
+    <IncludePath>E:\Projects\CPP\boost;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -52,8 +53,8 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)\CfgWrtr;$(SolutionDir)\CfgPrsr;$(SolutionDir)\Cfg;$(SolutionDir)\Msg;$(SolutionDir)\Messenger;$(SolutionDir)\TCPCom;E:\Projects\CPP\boost</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_WIN32_WINNT=0x0602;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)\CfgWrtr;$(SolutionDir)\CfgPrsr;$(SolutionDir)\Cfg;$(SolutionDir)\Msg;$(SolutionDir)\Messenger;$(SolutionDir)\TCPCom</AdditionalIncludeDirectories>
       <BrowseInformation>true</BrowseInformation>
     </ClCompile>
     <Link>
