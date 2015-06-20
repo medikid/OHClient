@@ -1,18 +1,12 @@
 #ifndef MSG_H //VERSION:1.00
 #define MSG_H
 
-#ifdef MSG_EXPORTS
-#define MSG_API __declspec(dllexport)
-#else
-#define MSG_API __declspec(dllimport)
-#endif
-
 #include <string>
 #include <boost/shared_ptr.hpp>
 
-namespace s11n_example {
+namespace TCP {
 
-MSG_API  enum COMMAND_KEY{
+enum COMMAND_KEY{
 	SET,
 	INFO,
 	NEW,
@@ -23,7 +17,7 @@ MSG_API  enum COMMAND_KEY{
 };
 
 
-MSG_API enum COMMAND_VALUE{
+enum COMMAND_VALUE{
 	GAME,
 	ROUND,
 	TABLE,
@@ -41,14 +35,14 @@ MSG_API enum COMMAND_VALUE{
 };
 
 
-MSG_API enum EVENTS{
+enum EVENTS{
 	//NEW GAME
 
 
 };
 
 
-MSG_API  struct Msg {
+struct Msg {
 	double VERSION;
 	int TO;
 	int FROM;
@@ -137,6 +131,6 @@ MSG_API  struct Msg {
 
 typedef boost::shared_ptr<Msg> Msg_ptr;
 
-}//namespace TCP
+}//TCP TCP
 
 #endif //MSG_H

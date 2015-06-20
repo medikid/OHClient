@@ -35,6 +35,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AsyncClient", "AsyncClient\
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AsyncServer", "AsyncServer\AsyncServer.vcxproj", "{F1232613-6904-4C5D-9F13-D2778DF48D2E}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AsyncDLL", "AsyncDLL\AsyncDLL.vcxproj", "{E1F2A7E9-B2CA-4049-9063-15434CEE5029}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -97,6 +99,10 @@ Global
 		{F1232613-6904-4C5D-9F13-D2778DF48D2E}.Debug|Win32.Build.0 = Debug|Win32
 		{F1232613-6904-4C5D-9F13-D2778DF48D2E}.Release|Win32.ActiveCfg = Release|Win32
 		{F1232613-6904-4C5D-9F13-D2778DF48D2E}.Release|Win32.Build.0 = Release|Win32
+		{E1F2A7E9-B2CA-4049-9063-15434CEE5029}.Debug|Win32.ActiveCfg = Debug|Win32
+		{E1F2A7E9-B2CA-4049-9063-15434CEE5029}.Debug|Win32.Build.0 = Debug|Win32
+		{E1F2A7E9-B2CA-4049-9063-15434CEE5029}.Release|Win32.ActiveCfg = Release|Win32
+		{E1F2A7E9-B2CA-4049-9063-15434CEE5029}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

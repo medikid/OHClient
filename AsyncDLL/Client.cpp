@@ -3,6 +3,19 @@
 
 using namespace TCP ;
 
+void Client::connect(boost::asio::io_service& io_service, const std::string& host, const std::string& service){
+	
+    // Resolve the host name into an IP address.
+    boost::asio::ip::tcp::resolver resolver(io_service);
+    boost::asio::ip::tcp::resolver::query query(host, service);
+    boost::asio::ip::tcp::resolver::iterator endpoint_iterator =
+      resolver.resolve(query);
+    boost::asio::ip::tcp::endpoint endpoint = *endpoint_iterator;
+
+    // Start an asynchronous connect operation.
+    connection_->socket().async_connect(endpoint, boost::bind(&Client::handle_connect, this, boost::asio::placeholders::error, ++endpoint_iterator));
+}
+
   /// Handle completion of a connect operation.
   void Client::handle_connect(const boost::system::error_code& e, boost::asio::ip::tcp::resolver::iterator endpoint_iterator) {
     if (!e)

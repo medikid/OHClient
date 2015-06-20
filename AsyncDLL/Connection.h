@@ -33,12 +33,27 @@ namespace TCP {
  */
 class Connection
 {
+private:
+	  /// The underlying socket.
+	  boost::asio::ip::tcp::socket socket_;
+
+	  /// The size of a fixed length header.
+	  enum { header_length = 8 };
+
+	  /// Holds an outbound header.
+	  std::string outbound_header_;
+
+	  /// Holds the outbound data.
+	  std::string outbound_data_;
+
+	  /// Holds an inbound header.
+	  char inbound_header_[header_length];
+
+	  /// Holds the inbound data.
+	  std::vector<char> inbound_data_;
 public:
   /// Constructor.
-  Connection(boost::asio::io_service& io_service)
-    : socket_(io_service)
-  {
-  }
+  Connection(boost::asio::io_service& io_service): socket_(io_service){ }
 
   /// Get the underlying socket. Used for making a connection or for accepting
   /// an incoming connection.
@@ -50,7 +65,8 @@ public:
   /// Asynchronously write a data structure to the socket.
   template <typename T, typename Handler>
   void async_write(const T& t, Handler handler)
-  {
+  {/*
+	  
     // Serialize the data first so we know how large it is.
     std::ostringstream archive_stream;
     boost::archive::text_oarchive archive(archive_stream);
@@ -65,9 +81,7 @@ public:
     {
       // Something went wrong, inform the caller.
       boost::system::error_code error(boost::asio::error::invalid_argument);
-      //socket_.io_service().post(boost::bind(handler, error));
-	  //socket_.io_service().post(boost::bind(handler, error));
-	  //post(boost::bind(handler, error));
+     // socket_.io_service().post(boost::bind(handler, error));
       return;
     }
     outbound_header_ = header_stream.str();
@@ -78,6 +92,7 @@ public:
     buffers.push_back(boost::asio::buffer(outbound_header_));
     buffers.push_back(boost::asio::buffer(outbound_data_));
     boost::asio::async_write(socket_, buffers, handler);
+	*/
   }
 
   /// Asynchronously read a data structure from the socket.
@@ -85,14 +100,8 @@ public:
   void async_read(T& t, Handler handler)
   {
     // Issue a read operation to read exactly the number of bytes in a header.
-    void (Connection::*f)(
-        const boost::system::error_code&,
-        T&, boost::tuple<Handler>)
-      = &Connection::handle_read_header<T, Handler>;
-    boost::asio::async_read(socket_, boost::asio::buffer(inbound_header_),
-        boost::bind(f,
-          this, boost::asio::placeholders::error, boost::ref(t),
-          boost::make_tuple(handler)));
+    void (Connection::*f)(const boost::system::error_code&,  T&, boost::tuple<Handler>)  = &Connection::handle_read_header<T, Handler>;
+    boost::asio::async_read(socket_, boost::asio::buffer(inbound_header_),  boost::bind(f, this, boost::asio::placeholders::error, boost::ref(t),  boost::make_tuple(handler)));
   }
 
   /// Handle a completed read of a message header. The handler is passed using
@@ -101,7 +110,8 @@ public:
   template <typename T, typename Handler>
   void handle_read_header(const boost::system::error_code& e,
       T& t, boost::tuple<Handler> handler)
-  {
+  {/*
+	  
     if (e)
     {
       boost::get<0>(handler)(e);
@@ -121,21 +131,17 @@ public:
 
       // Start an asynchronous call to receive the data.
       inbound_data_.resize(inbound_data_size);
-      void (Connection::*f)(
-          const boost::system::error_code&,
-          T&, boost::tuple<Handler>)
-        = &Connection::handle_read_data<T, Handler>;
-      boost::asio::async_read(socket_, boost::asio::buffer(inbound_data_),
-        boost::bind(f, this,
-          boost::asio::placeholders::error, boost::ref(t), handler));
+      void (Connection::*f)(const boost::system::error_code&,T&, boost::tuple<Handler>)  = &Connection::handle_read_data<T, Handler>;
+		boost::asio::async_read(socket_, boost::asio::buffer(inbound_data_), boost::bind(f, this,boost::asio::placeholders::error, boost::ref(t), handler));
     }
+	*/
   }
 
   /// Handle a completed read of message data.
   template <typename T, typename Handler>
   void handle_read_data(const boost::system::error_code& e,
       T& t, boost::tuple<Handler> handler)
-  {
+  { /*
     if (e)
     {
       boost::get<0>(handler)(e);
@@ -160,27 +166,11 @@ public:
 
       // Inform caller that data has been received ok.
       boost::get<0>(handler)(e);
-    }
+    } 
+	*/
   }
 
-private:
-  /// The underlying socket.
-  boost::asio::ip::tcp::socket socket_;
 
-  /// The size of a fixed length header.
-  enum { header_length = 8 };
-
-  /// Holds an outbound header.
-  std::string outbound_header_;
-
-  /// Holds the outbound data.
-  std::string outbound_data_;
-
-  /// Holds an inbound header.
-  char inbound_header_[header_length];
-
-  /// Holds the inbound data.
-  std::vector<char> inbound_data_;
 };
 
 typedef boost::shared_ptr<Connection> connection_ptr;

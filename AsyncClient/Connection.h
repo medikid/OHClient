@@ -22,7 +22,7 @@
 #include <sstream>
 #include <vector>
 
-namespace s11n_example {
+namespace TCP {
 
 /// The connection class provides serialization primitives on top of a socket.
 /**
@@ -65,7 +65,7 @@ public:
     {
       // Something went wrong, inform the caller.
       boost::system::error_code error(boost::asio::error::invalid_argument);
-      socket_.io_service().post(boost::bind(handler, error));
+     // socket_.io_service().post(boost::bind(handler, error));
       return;
     }
     outbound_header_ = header_stream.str();
@@ -177,6 +177,6 @@ private:
 
 typedef boost::shared_ptr<Connection> connection_ptr;
 
-} // namespace s11n_example
+} // namespace TCP
 
 #endif // SERIALIZATION_CONNECTION_HPP
