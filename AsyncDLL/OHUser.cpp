@@ -3,17 +3,27 @@
 #include "OHUser.h"
 
 #include "Client.h"
+#include <boost/thread.hpp>
+#include <boost/shared_ptr.hpp>
 
 bool ClientStarted = false;
+boost::asio::io_service IOS;
+TCP::Client client(IOS, "localhost", "1234");
+
 //TCP::CLIENT::TCPClient* tClient;
 //std::vector<GAME::GS_ptr> GS_V;
 pfgws_t m_pget_winholdem_symbol = NULL; // lets initiate this to null to check later if this is obtained from OH
 
 void initClient(){
-	boost::asio::io_service io_service;
-	TCP::Client client(io_service, "localhost", "1234");
-	client.connect(io_service,"localhost", "1234");	
-	io_service.run();
+	{	
+		boost::shared_ptr<boost::asio::io_service::work> w(new boost::asio::io_service::work(IOS));		
+					AllocConsole();
+					client.connect(IOS,"localhost", "1234");
+					boost::thread t(boost::bind (&boost::asio::io_service::run, &IOS));	
+					_cprintf("Cliented connected to server at localhost:1234");
+					t.detach();
+		
+	}
 	/*
 	boost::asio::io_service io_service;
     TCP::Client client(io_service, "localhost", "1234");
