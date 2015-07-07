@@ -43,6 +43,7 @@ enum EVENTS{
 
 
 struct Msg {
+	 friend class boost::serialization::access;
 	double VERSION;
 	int TO;
 	int FROM;
@@ -127,7 +128,9 @@ struct Msg {
 		ar & SUMMARY;
 		ar & fillerbites_6;
 	}
+
 };
+
 
 typedef boost::shared_ptr<Msg> Msg_ptr;
 

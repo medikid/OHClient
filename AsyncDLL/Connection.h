@@ -11,6 +11,7 @@
 #ifndef SERIALIZATION_CONNECTION_HPP
 #define SERIALIZATION_CONNECTION_HPP
 
+
 #include <boost/asio.hpp>
 #include <boost/archive/text_iarchive.hpp>
 #include <boost/archive/text_oarchive.hpp>
@@ -21,6 +22,20 @@
 #include <string>
 #include <sstream>
 #include <vector>
+
+#include <boost/bind.hpp>
+#include <iostream>
+#include <vector>
+#include <boost/serialization/vector.hpp>
+#include "Msg.h"
+
+#include <boost/archive/binary_oarchive.hpp>
+#include <boost/archive/binary_iarchive.hpp>
+
+#include <atlstr.h>
+#include <conio.h>
+#include <time.h>
+#include <windows.h> //windows should come at the end
 
 namespace TCP {
 
@@ -65,14 +80,24 @@ public:
   /// Asynchronously write a data structure to the socket.
   template <typename T, typename Handler>
   void async_write(const T& t, Handler handler)
-  {/*
-	  
-    // Serialize the data first so we know how large it is.
-    std::ostringstream archive_stream;
-    boost::archive::text_oarchive archive(archive_stream);
+  {
+	  _cprintf("Connection->async_write \n");
+	 // boost::asio::basic_socket_iostream archive_stream;
+	 std::ostringstream archive_stream;	 
+	 boost::archive::text_oarchive archive(archive_stream);
+	//boost::archive::binary_oarchive archive(archive_stream);
     archive << t;
     outbound_data_ = archive_stream.str();
-
+	  
+	  /*
+    // Serialize the data first so we know how large it is.
+    std::stringstream archive_stream;
+	 boost::archive::text_oarchive archive(archive_stream);
+	//boost::archive::binary_oarchive archive(archive_stream);
+    archive << t;
+    outbound_data_ = archive_stream.str();
+	//_cprintf("Connection->async_write  sending: %s \n", outbound_data_);
+	
     // Format the header.
     std::ostringstream header_stream;
     header_stream << std::setw(header_length)

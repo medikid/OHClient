@@ -37,6 +37,16 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AsyncServer", "AsyncServer\
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AsyncDLL", "AsyncDLL\AsyncDLL.vcxproj", "{E1F2A7E9-B2CA-4049-9063-15434CEE5029}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SerializeDLL", "SerializeDLL\SerializeDLL.vcxproj", "{07571C5B-93B9-4498-AD78-775BF5F86F0D}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "QTClient", "QTClient\QTClient.vcxproj", "{B12702AD-ABFB-343A-A199-8E24837244A3}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "QTServer", "QTServer\QTServer.vcxproj", "{0E001B25-75CB-40ED-B6AD-1E7F77813412}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "QTAsyncServer", "QTAsyncServer\QTAsyncServer.vcxproj", "{B5C7722A-7E66-4D50-A0D4-44308927E9E8}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OHQtDLL", "OHQtDLL\OHQtDLL.vcxproj", "{B7FD4DFB-2144-496F-BFE3-064C405FFD3C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -103,6 +113,26 @@ Global
 		{E1F2A7E9-B2CA-4049-9063-15434CEE5029}.Debug|Win32.Build.0 = Debug|Win32
 		{E1F2A7E9-B2CA-4049-9063-15434CEE5029}.Release|Win32.ActiveCfg = Release|Win32
 		{E1F2A7E9-B2CA-4049-9063-15434CEE5029}.Release|Win32.Build.0 = Release|Win32
+		{07571C5B-93B9-4498-AD78-775BF5F86F0D}.Debug|Win32.ActiveCfg = Debug|Win32
+		{07571C5B-93B9-4498-AD78-775BF5F86F0D}.Debug|Win32.Build.0 = Debug|Win32
+		{07571C5B-93B9-4498-AD78-775BF5F86F0D}.Release|Win32.ActiveCfg = Release|Win32
+		{07571C5B-93B9-4498-AD78-775BF5F86F0D}.Release|Win32.Build.0 = Release|Win32
+		{B12702AD-ABFB-343A-A199-8E24837244A3}.Debug|Win32.ActiveCfg = Debug|Win32
+		{B12702AD-ABFB-343A-A199-8E24837244A3}.Debug|Win32.Build.0 = Debug|Win32
+		{B12702AD-ABFB-343A-A199-8E24837244A3}.Release|Win32.ActiveCfg = Release|Win32
+		{B12702AD-ABFB-343A-A199-8E24837244A3}.Release|Win32.Build.0 = Release|Win32
+		{0E001B25-75CB-40ED-B6AD-1E7F77813412}.Debug|Win32.ActiveCfg = Debug|Win32
+		{0E001B25-75CB-40ED-B6AD-1E7F77813412}.Debug|Win32.Build.0 = Debug|Win32
+		{0E001B25-75CB-40ED-B6AD-1E7F77813412}.Release|Win32.ActiveCfg = Release|Win32
+		{0E001B25-75CB-40ED-B6AD-1E7F77813412}.Release|Win32.Build.0 = Release|Win32
+		{B5C7722A-7E66-4D50-A0D4-44308927E9E8}.Debug|Win32.ActiveCfg = Debug|Win32
+		{B5C7722A-7E66-4D50-A0D4-44308927E9E8}.Debug|Win32.Build.0 = Debug|Win32
+		{B5C7722A-7E66-4D50-A0D4-44308927E9E8}.Release|Win32.ActiveCfg = Release|Win32
+		{B5C7722A-7E66-4D50-A0D4-44308927E9E8}.Release|Win32.Build.0 = Release|Win32
+		{B7FD4DFB-2144-496F-BFE3-064C405FFD3C}.Debug|Win32.ActiveCfg = Debug|Win32
+		{B7FD4DFB-2144-496F-BFE3-064C405FFD3C}.Debug|Win32.Build.0 = Debug|Win32
+		{B7FD4DFB-2144-496F-BFE3-064C405FFD3C}.Release|Win32.ActiveCfg = Release|Win32
+		{B7FD4DFB-2144-496F-BFE3-064C405FFD3C}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

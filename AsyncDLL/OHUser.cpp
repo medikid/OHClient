@@ -21,8 +21,7 @@ void initClient(){
 					client.connect(IOS,"localhost", "1234");
 					boost::thread t(boost::bind (&boost::asio::io_service::run, &IOS));	
 					_cprintf("Cliented connected to server at localhost:1234");
-					t.detach();
-		
+					t.detach();		
 	}
 	/*
 	boost::asio::io_service io_service;
